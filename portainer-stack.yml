@@ -1,0 +1,25 @@
+# Portainer-Stack für Kronland
+# Portainer → Stacks → Add stack → Web editor → diesen Inhalt einfügen → Deploy the stack
+# Das Image wird direkt aus dem GitHub-Repo gebaut (kein lokales Klonen nötig).
+# Update auf neue Version: Stack öffnen → "Update the stack" mit Haken bei "Re-pull image and redeploy"
+# bzw. "Pull and redeploy".
+
+services:
+  kronland:
+    build:
+      context: https://github.com/ynnck7/cbc.git#main
+    image: kronland:latest
+    container_name: kronland
+    restart: unless-stopped
+    ports:
+      - "8080:8080"          # links: Port auf dem Host, ggf. anpassen
+    environment:
+      ALLOW_REGISTRATION: "true"   # nach dem Anlegen eurer Konten auf "false"
+      SECURE_COOKIE: "false"       # auf "true", sobald nur noch per HTTPS erreichbar
+      SESSION_DAYS: "30"
+      TZ: "Europe/Berlin"
+    volumes:
+      - kronland-data:/data
+
+volumes:
+  kronland-data:
