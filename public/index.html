@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kronland</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><path d='M8 48h48l-4-28-12 12-8-20-8 20-12-12z' fill='%23d4af37' stroke='%233a2a10' stroke-width='3'/></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Anmeldung -->
+  <section id="screen-login" class="screen hidden">
+    <div class="title-art"></div>
+    <div class="panel login-panel">
+      <h1 class="logo">Kronland</h1>
+      <p class="sub">Gründe eine Stadt. Baue sie auf. Handle mit deinen Nachbarn.</p>
+      <form id="login-form">
+        <label>Benutzername<input name="username" autocomplete="username" required minlength="3" maxlength="24"></label>
+        <label>Passwort<input name="password" type="password" autocomplete="current-password" required minlength="6"></label>
+        <div class="err" id="login-err"></div>
+        <div class="row">
+          <button type="submit" class="btn primary" data-act="login">Anmelden</button>
+          <button type="button" class="btn" id="btn-register">Konto anlegen</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Spielstände -->
+  <section id="screen-slots" class="screen hidden">
+    <div class="title-art"></div>
+    <div class="panel slots-panel">
+      <div class="slots-head">
+        <h1 class="logo small">Kronland</h1>
+        <div class="user">Angemeldet als <b id="user-name"></b> · <a href="#" id="btn-pw">Passwort ändern</a> · <a href="#" id="btn-logout">Abmelden</a></div>
+      </div>
+      <h2>Spielstände</h2>
+      <div id="slot-list" class="slot-list"></div>
+    </div>
+  </section>
+
+  <!-- Neues Spiel -->
+  <section id="screen-new" class="screen hidden">
+    <div class="title-art"></div>
+    <div class="panel new-panel">
+      <h2>Neues Spiel – Slot <span id="new-slot-n"></span></h2>
+      <form id="new-form" class="grid2">
+        <label>Name des Spielstands<input name="name" maxlength="40" value="Mein Kronland"></label>
+        <label>Seed (Kartencode)<span class="inline"><input name="seed" maxlength="30"><button type="button" class="btn tiny" id="btn-reseed" title="Neuer Zufallscode">🎲</button></span></label>
+        <label>Anzahl Städte: <b id="cities-val">10</b><input type="range" name="cities" min="5" max="20" value="10"></label>
+        <label>Kartentyp
+          <select name="mapType">
+            <option value="zufall">Zufällig</option>
+            <option value="kueste">Küstenland</option>
+            <option value="halbinsel">Halbinsel</option>
+            <option value="insel">Insel</option>
+            <option value="buchten">Buchten &amp; Inseln</option>
+          </select>
+        </label>
+        <label>Schwierigkeit
+          <select name="difficulty">
+            <option value="leicht">Leicht</option>
+            <option value="normal" selected>Normal</option>
+            <option value="schwer">Schwer</option>
+          </select>
+        </label>
+        <div class="hint">Die Karte wächst mit der Anzahl der Städte. Ein Teil der Nachbarstädte existiert schon, die übrigen gründen sich in den ersten Tagen nach dir.</div>
+        <div class="row span2">
+          <button type="button" class="btn" id="btn-new-back">Zurück</button>
+          <button type="submit" class="btn primary">Karte erzeugen</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Ladebildschirm -->
+  <section id="screen-loading" class="screen hidden">
+    <div class="title-art"></div>
+    <div class="panel loading-panel"><div class="spinner"></div><div id="loading-text">Die Welt entsteht …</div></div>
+  </section>
+
+  <!-- Spiel -->
+  <section id="screen-game" class="screen hidden">
+    <canvas id="map"></canvas>
+    <div id="topbar" class="bar"></div>
+    <div id="buildbar" class="panel side"></div>
+    <div id="infopanel" class="panel side right hidden"></div>
+    <div id="minimap-wrap" class="panel"><canvas id="minimap" width="240" height="150"></canvas>
+      <div class="modes">
+        <button class="btn tiny" data-mode="gelaende" title="Gelände">🗺️</button>
+        <button class="btn tiny" data-mode="politisch" title="Politisch">🏰</button>
+        <button class="btn tiny" data-mode="ressourcen" title="Lagerstätten">⛏️</button>
+      </div>
+    </div>
+    <div id="log" class="panel"></div>
+    <div id="banner" class="banner hidden"></div>
+    <div id="tooltip" class="tooltip hidden"></div>
+    <div id="window" class="panel window hidden"><div class="win-head"><span class="win-title"></span><button class="btn tiny win-close">✕</button></div><div class="win-body"></div></div>
+  </section>
+
+  <div id="modal" class="modal hidden"><div class="panel modal-box"><div class="modal-body"></div><div class="row modal-actions"></div></div></div>
+  <div id="toast" class="toast hidden"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

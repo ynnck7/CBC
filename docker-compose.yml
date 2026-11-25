@@ -1,0 +1,19 @@
+services:
+  kronland:
+    build: .
+    image: kronland:latest
+    container_name: kronland
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # Neue Konten erlauben (nach dem Anlegen der eigenen Konten auf "false" setzen)
+      ALLOW_REGISTRATION: "true"
+      # Auf "true" setzen, wenn das Spiel nur per HTTPS (nginx mit Zertifikat) erreichbar ist
+      SECURE_COOKIE: "false"
+      SESSION_DAYS: "30"
+    volumes:
+      - kronland-data:/data
+
+volumes:
+  kronland-data:
